@@ -1,0 +1,285 @@
+@import url("https://fonts.googleapis.com/css?family=Raleway");
+* {
+    font-family: "Raleway", sans-serif;
+}
+
+body {
+    background-color:#e4e4e4;
+}
+
+.header {
+    width: 1024px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.username,
+.logout {
+    font-size: 22px;
+    margin: auto 0;
+}
+
+.title {
+    color: #0084da;
+    font-weight: 700;
+    font-size: larger;
+}
+
+.popupBox,
+.quizBox {
+    position: absolute;
+    width: 1024px;
+    height: 500px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin: auto;
+}
+
+.question {
+    position: relative;
+    background-color: #0084da;
+    color: rgb(255, 255, 255);
+    padding: 20px;
+    font-size: 1.8em;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.answers ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.answers li {
+    background-color: #fff;
+    border: 2px solid #0094da;
+    min-height: 70px;
+    width: 48%;
+    border-radius: 10px;
+    display: flex;
+    margin-bottom: 20px;
+    transition: color .3s ease, border-color .3s ease, transform .3s ease;
+}
+
+.answers li span {
+    background-color: #0084da;
+    color: #fff;
+    font-size: 30px;
+    flex: 75px;
+    border-radius: 5px 0 0 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color .3s ease;
+}
+
+.answers li p {
+    color: #0b0e21;
+    font-size: 16px;
+    font-weight: 600;
+    flex: calc(100% - 75px);
+    margin: auto 20px;
+    transition: color .3s ease;
+}
+
+.answers li:after {
+    display: block;
+}
+
+.answers li:hover {
+    transform: scale(1.02);
+    cursor: pointer;
+}
+
+.answers li.selected {
+    border-color: #0b0e21;
+}
+
+.answers li.selected span {
+    background-color: #0b0e21;
+}
+
+.answers li.selected p {
+    color: #0b0e21;
+}
+
+.answers li.right {
+    border-color: #1ea55b;
+    color: #1ea55b;
+}
+
+.answers li.right span {
+    background-color: #1ea55b;
+}
+
+.answers li.right p {
+    color: #1ea55b;
+}
+
+.answers li.wrong {
+    border-color: #dc0a0a;
+    color: #dc0a0a;
+}
+
+.answers li.wrong span {
+    background-color: #dc0a0a;
+}
+
+.answers li.wrong p {
+    color: #dc0a0a;
+}
+
+.fancyBtn {
+    border: 2px solid #0b0e21;
+    border-radius: 10px;
+    background-color: #0b0e21;
+    color: #fff;
+    display: block;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 16px 75px;
+    margin: 0 auto;
+    text-transform: uppercase;
+    transition: color .2s ease, background-color .2s ease, transform .2s ease;
+}
+
+.fancyBtn:hover {
+    background-color: #1ea55b;
+    cursor: pointer;
+    border-color: #1ea55b;
+    transform: scale(1.02);
+}
+
+.fancyBtn.disabled {
+    border-color: #999999;
+    background-color: #cccccc;
+    color: #666666;
+    pointer-events: none;
+}
+
+.popupContainer {
+	display: none;
+	transition: display .3s ease;
+}
+
+.popupBox {
+	background-color: #fff;
+	z-index: 1;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.popupMessage {
+	height: 100%;
+	width: 65%;
+	position: relative;
+}
+
+.popupMessage h4 {
+	font-size: 40px;
+	font-weight: 700;
+	text-align: center;
+}
+
+.popupMessage p {
+	font-size: 20px;
+	text-align: center;
+}
+
+.popupMessage p.score {
+	font-size: 80px;
+	font-weight: 700;
+	text-align: center;
+	margin-top: -20px;
+}
+
+.popupBtn {
+	margin-top: 100px;
+}
+
+.popupBtn.score {
+	margin-top: 0px;
+}
+
+.leaderboard {
+	background-color: #1ea55b;
+	height: 100%;
+	width: 35%;
+	border-radius: 10px;
+}
+
+.leaderboard span {
+	color: #fff;
+  background-color: #0084da;
+	width: 100%;
+	display: block;
+	height: 70px;
+	border-radius: 10px 10px 0 0;
+	text-align: center;
+	line-height: 70px;
+	font-size: 35px;
+	font-weight: 700;
+}
+
+.loginBox {
+    position: absolute;
+    width: 400px;
+    height: 300px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin: auto;
+    background-color: #fff;
+}
+
+.loginBox h1 {
+    text-align: center;
+    font-weight: 300;
+}
+
+.loginBox form {
+    margin-left: 20px;
+}
+
+.loginBox label {
+    font-size: 20px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.loginBox input {
+    position: absolute;
+    right: 35px;
+    width: 220px;
+    height: 40px;
+    box-sizing: border-box;
+    border: 2px solid #0084da;
+    border-radius: 4px;
+}
+
+.loginBox .fancyBtn {
+    padding: 10px 40px;
+}
+
+.loginBox p {
+    text-align: center;
+}
