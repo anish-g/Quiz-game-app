@@ -1,6 +1,17 @@
 import React from 'react';
+import { app } from 'firebase';
 
 class Popup extends React.Component {
+	leaderboard() {
+		const scoreList = this.props.scoreList();
+		scoreList.sort().reverse();
+		const listLeaderboard = scoreList.map(list => (
+			<li><div className='leaderboardList'><span className='user'>{list.user}</span><span className='score'>{list.score}</span></div></li>
+		))
+
+		return listLeaderboard;
+	}
+
 	render() {
 		return (
 			<div className='popupContainer' style={this.props.style}>
@@ -12,10 +23,10 @@ class Popup extends React.Component {
 						<button className='fancyBtn popupBtn score' onClick={this.props.restart}>Restart</button>
 					</div>
 					<div className='leaderboard'>
-						<span>Leaderboard</span>
-						<ol>
-							<li></li>
-						</ol>
+						<span className='head'>Leaderboard</span>
+						<ul>
+							{this.leaderboard()}
+						</ul>
 					</div>
 				</div>
 			</div>

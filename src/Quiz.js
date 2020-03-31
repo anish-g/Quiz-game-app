@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import app from './backend/base.js';
 import Popup from './popup.js';
 import './assets/style.css';
-import questions from './quizService/questions.js'
+import questions from './quizService/questions.js';
 
 class QuizGame extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			user: app.auth().currentUser.email,
+			uid: app.auth().currentUser.uid,
 			count: 0,
 			totalQuestions: questions.length,
 			ansSelected: false,
@@ -17,7 +18,8 @@ class QuizGame extends Component {
 			score: 0,
 			limitQuestions: 10,
 			displayedQuestions: [],
-			displayPopup: 'none'
+			displayPopup: 'none',
+			leaderboard: []
 		}
 		this.randomQuestion = this.randomQuestion.bind(this);
 		this.selectAnswer = this.selectAnswer.bind(this);
@@ -85,6 +87,7 @@ class QuizGame extends Component {
 		let { count, limitQuestions } = this.state;
 		if (count >= limitQuestions) {
 			this.setState({ gameOver: true });
+			this.updateHighestScore(this.state.user, this.state.score);
 			this.showPopup();
 		} else {
 			this.pushQuestions(this.randomQuestion());
@@ -139,11 +142,48 @@ class QuizGame extends Component {
 		}
 	}
 
+	updateHighestScore(user, score) {
+		let userId = this.state.uid;
+		app.database().ref('quiz-game-score/' + userId).once('value').then(function(snapshot) {
+			if(!snapshot.val() || snapshot.val().score < score) {
+				app.database().ref('quiz-game-score/' + userId).set({
+					user: user,
+					score: score
+				});
+			}
+		});
+	}
+
+	getScoreList = () => {
+		let scoreList = [];
+		app.database().ref('quiz-game-score').orderByChild('score').limitToLast(10).on('child_added', function(snapshot) {
+			scoreList.push(snapshot.val());
+		})
+		return scoreList;
+		// this.setState({ leaderboard: scoreList}, function() {
+		// 	console.log(this.state.leaderboard);
+		// 	return this.state.leaderboard;
+		// });
+	}
+
+	// getScoreList = () => {
+	// 	let scoreList = [];
+	// 	app.database().ref('quiz-game-score').orderByChild('score').on('value', function(snapshot) {
+	// 		let scores = snapshot.val();
+	// 		scoreList = [];
+	// 		let keys = Object.keys(scores);
+	// 		for (let i = 0; i < keys.length; i++) {
+	// 			let k = keys[i];
+	// 			scoreList.push({user: scores[k].user, score: scores[k].score});
+	// 		}
+	// 	})
+	// 	return scoreList;
+	// }
+
 	render() {
-		console.log(this.state.user)
 		return (
 			<div className='container'>
-				<Popup style={{ display: this.state.displayPopup }} user={this.state.user} score={this.state.score} limitQuestions={this.state.limitQuestions} restart={this.restart} />
+				<Popup style={{ display: this.state.displayPopup }} user={this.state.user} score={this.state.score} limitQuestions={this.state.limitQuestions} restart={this.restart} scoreList={this.getScoreList}/>
 				<div className='header'>
 					<div className='username'>
 						<p> {this.state.user} </p>

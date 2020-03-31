@@ -218,10 +218,10 @@ body {
 	background-color: #1ea55b;
 	height: 100%;
 	width: 35%;
-	border-radius: 10px;
+    border-radius: 10px;
 }
 
-.leaderboard span {
+.leaderboard span.head {
 	color: #fff;
   background-color: #0084da;
 	width: 100%;
@@ -232,6 +232,25 @@ body {
 	line-height: 70px;
 	font-size: 35px;
 	font-weight: 700;
+}
+
+.leaderboard ul {
+    list-style: none;
+}
+
+.leaderboard li {
+    display: block;
+    padding: 8px 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #000;
+}
+
+.leaderboard li div.leaderboardList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: calc(100% - 40px);
 }
 
 .loginBox {
